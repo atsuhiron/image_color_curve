@@ -5,6 +5,7 @@ import dataclasses
 @dataclasses.dataclass(frozen=True)
 class ImgTemplate:
     name: str
+    role: str
     upper: int
     lower: int
     left: int
@@ -12,7 +13,7 @@ class ImgTemplate:
 
     @staticmethod
     def from_json_dict(d: dict) -> ImgTemplate:
-        return ImgTemplate(d["name"], d["upper"], d["lower"], d["left"], d["right"])
+        return ImgTemplate(d["name"], d["role"], d["upper"], d["lower"], d["left"], d["right"])
 
 
 @dataclasses.dataclass(frozen=True)
