@@ -5,16 +5,11 @@ import yaml
 
 from models.img_template import Portfolio
 from models.img_template import ImgProfile
-
-
-def _load(path: str) -> Portfolio:
-    with open(path, "r") as f:
-        d = yaml.safe_load(f)
-    return Portfolio.from_json_dict(d["portfolio"])
+from models.img_template import load_portfolio
 
 
 def init_from_default_template(default_template_path: str, new_path: str, image_glob_pattern: str):
-    default_temp = _load(default_template_path)
+    default_temp = load_portfolio(default_template_path)
     profiles = []
     for i_path in glob.iglob(image_glob_pattern):
         profiles.append(

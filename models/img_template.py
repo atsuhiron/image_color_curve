@@ -1,6 +1,8 @@
 from __future__ import annotations
 import dataclasses
 
+import yaml
+
 
 @dataclasses.dataclass(frozen=True)
 class ImgTemplate:
@@ -56,7 +58,7 @@ class Portfolio:
         default_templates = [ImgTemplate.from_json_dict(temp) for temp in d["default_templates"]]
         temp_name_set = set(temp.name for temp in default_templates)
 
-        profile_d_list = d.get("profile")
+        profile_d_list = d.get("profiles")
         if profile_d_list is None:
             return Portfolio(default_templates, [])
 
@@ -69,3 +71,9 @@ class Portfolio:
             profiles.append(prof)
 
         return Portfolio(default_templates, profiles)
+
+
+def load_portfolio(path: str) -> Portfolio:
+    with open(path, "r") as f:
+        d = yaml.safe_load(f)
+    return Portfolio.from_json_dict(d)
